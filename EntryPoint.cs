@@ -1,6 +1,7 @@
 ﻿using System.Collections.Generic;
 using TheArchive.Core;
 using TheArchive.Core.Attributes;
+using TheArchive.Core.FeaturesAPI;
 using TheArchive.Core.Localization;
 
 namespace Hikaria.DamageAnalyzer
@@ -35,12 +36,10 @@ namespace Hikaria.DamageAnalyzer
 
         public ArchiveLegacyPatcher Patcher { get; set; }
 
-        public string ModuleGroup => "Damage Analyzer";
-
-        public Dictionary<Language, string> ModuleGroupLanguages => new()
+        public string ModuleGroup => FeatureGroups.GetOrCreateModuleGroup("Damage Analyzer", new()
         {
             { Language.Chinese, "伤害分析器" },
             { Language.English, "Damage Analyzer" }
-        };
+        });
     }
 }
