@@ -12,7 +12,6 @@ namespace Hikaria.DamageAnalyzer
     {
         public void Init()
         {
-            Instance = this;
             Logs.LogMessage("OK");
         }
 
@@ -27,8 +26,6 @@ namespace Hikaria.DamageAnalyzer
         public void OnExit()
         {
         }
-
-        public static EntryPoint Instance { get; private set; }
 
         public bool ApplyHarmonyPatches => false;
 

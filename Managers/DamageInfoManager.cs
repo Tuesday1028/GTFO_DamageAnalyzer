@@ -112,7 +112,6 @@ public static class DamageInfoManager
     public static bool IsSleepMulti;
     public static bool IsSentryGunFire;
     public static Dictionary<ulong, float> OriginalBulletDamage = new();
-    public static bool DoBulletDamage;
 
     public struct pDamageInfo
     {

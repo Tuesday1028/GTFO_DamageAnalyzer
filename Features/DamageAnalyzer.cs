@@ -151,7 +151,6 @@ public class DamageAnalyzer : Feature
     {
         private static void Prefix(Weapon.WeaponHitData weaponRayData, bool doDamage, float additionalDis)
         {
-            DoBulletDamage = doDamage;
             SNet_Player player = weaponRayData.owner.Owner;
             if (!OriginalBulletDamage.TryAdd(player.Lookup, weaponRayData.damage))
             {
