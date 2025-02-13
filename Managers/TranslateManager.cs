@@ -43,7 +43,7 @@ internal static class TranslateManager
         return UNKNOWN;
     }
 
-    private static CustomSetting<List<EnemyIDName>> EnemyIDNameSettings = new("EnemyIDNames", new(), (data) =>
+    private static CustomSettings<List<EnemyIDName>> EnemyIDNameSettings = new("EnemyIDNames", new(), (data) =>
     {
         EnemyID2NameLookup = new();
         foreach (var item in data)
@@ -54,7 +54,7 @@ internal static class TranslateManager
             }
         }
     });
-    private static CustomSetting<List<EnemyLimbName>> EnemyLimbNameSettings = new("EnemyLimbNames", new(), (data) =>
+    private static CustomSettings<List<EnemyLimbName>> EnemyLimbNameSettings = new("EnemyLimbNames", new(), (data) =>
     {
         EnemyLimbNamesLookup = data.ToDictionary(x => x.Contain.ToLower(), x => x.Name);
     });

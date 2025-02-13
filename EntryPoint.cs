@@ -1,5 +1,4 @@
-﻿using System.Collections.Generic;
-using TheArchive.Core;
+﻿using TheArchive.Core;
 using TheArchive.Core.Attributes;
 using TheArchive.Core.FeaturesAPI;
 using TheArchive.Core.Localization;
