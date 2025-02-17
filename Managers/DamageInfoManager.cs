@@ -1,9 +1,9 @@
 ﻿using Agents;
-using GTFO.API;
 using Hikaria.Core.SNetworkExt;
 using Hikaria.DamageAnalyzer.Handlers;
 using SNetwork;
 using System.Collections.Generic;
+using System.Linq;
 using UnityEngine;
 
 namespace Hikaria.DamageAnalyzer.Managers;
@@ -12,14 +12,12 @@ public static class DamageInfoManager
 {
     public static void Setup()
     {
-        SNetExt_AuthorativeAction<pDamageInfo>.Create(typeof(pDamageInfo).FullName, ReceiveDamageInfo, null);
-
+        m_packet = SNetExt_AuthorativeAction<pDamageInfo>.Create(typeof(pDamageInfo).FullName, ReceiveDamageInfo, null, null, SNet_ChannelType.GameNonCritical);
     }
 
     public static void SendDamageInfo(BasicDamageInfo damageInfo, SNet_Player player)
     {
-        pDamageInfo data = new(player, damageInfo);
-        NetworkAPI.InvokeEvent(typeof(pDamageInfo).FullName, data, player, SNet_ChannelType.GameNonCritical);
+        m_packet.Ask(new(player, damageInfo));
     }
 
     private static void ReceiveDamageInfo(ulong senderID, pDamageInfo data)
@@ -69,7 +67,7 @@ public static class DamageInfoManager
             {
                 if (!player.IsLocal)
                 {
-                    if (SNet.IsMaster && DamageInfoReceivers.Contains(player.Lookup))
+                    if (SNet.IsMaster && m_packet.Listeners.Any(p => p.Lookup == player.Lookup))
                     {
                         SendDamageInfo(damageInfo, player);
                     }
@@ -107,11 +105,11 @@ public static class DamageInfoManager
     }
 
     public static bool ShowSentryDamage = true;
-    private static List<ulong> DamageInfoReceivers = new();
     public static uint LocalAgentGlobalID;
     public static bool IsSleepMulti;
     public static bool IsSentryGunFire;
     public static Dictionary<ulong, float> OriginalBulletDamage = new();
+    private static SNetExt_AuthorativeAction<pDamageInfo> m_packet;
 
     public struct pDamageInfo
     {
