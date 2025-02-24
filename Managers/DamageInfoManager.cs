@@ -1,4 +1,5 @@
 ﻿using Agents;
+using Hikaria.Core;
 using Hikaria.Core.SNetworkExt;
 using Hikaria.DamageAnalyzer.Handlers;
 using SNetwork;
@@ -12,7 +13,7 @@ public static class DamageInfoManager
 {
     public static void Setup()
     {
-        m_packet = SNetExt_AuthorativeAction<pDamageInfo>.Create(typeof(pDamageInfo).FullName, ReceiveDamageInfo, null, null, SNet_ChannelType.GameNonCritical);
+        m_packet = SNetExt_AuthorativeAction<pDamageInfo>.Create(typeof(pDamageInfo).FullName, ReceiveDamageInfo, null, p => CoreAPI.IsPlayerInstalledMod(p, PluginInfo.GUID), SNet_ChannelType.GameNonCritical);
     }
 
     public static void SendDamageInfo(BasicDamageInfo damageInfo, SNet_Player player)
